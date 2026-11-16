@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ermawan — DevOps Engineer</title>
+    <meta name="description" content="Ermawan — DevOps Engineer with hands-on experience in Linux server administration, Docker, CI/CD pipelines, monitoring, and application deployment.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --accent: #7CF29A;
+            --bg: #0A0C0F;
+            --surface: #12171D;
+            --surface2: #0B0E12;
+            --border: #232A33;
+            --text: #C9D1DB;
+            --text-muted: #8B95A3;
+            --text-dim: #5A6673;
+            --green: #7CF29A;
+            --blue: #5CC8FF;
+            --purple: #C4A1FF;
+            --orange: #FFB86B;
+            --pink: #FF8A8A;
+            --yellow: #F5E663;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: 'Space Grotesk', sans-serif;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        .mono { font-family: 'JetBrains Mono', monospace; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        section { padding: 80px 0 40px; }
+        
+        .section-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            color: var(--accent);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+        .section-title {
+            font-size: clamp(32px, 5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+        .section-desc {
+            font-size: 17px;
+            color: var(--text-muted);
+            max-width: 600px;
+            line-height: 1.55;
+            margin-bottom: 32px;
+        }
+
+        /* Navbar */
+        .nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+            background: rgba(10, 12, 15, 0.85); backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 24px; height: 64px;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+        .nav-brand { font-family: 'JetBrains Mono', monospace; font-size: 18px; font-weight: 700; color: #fff; text-decoration: none; }
+        .nav-brand span { color: var(--accent); }
+        .nav-links { display: flex; gap: 8px; }
+        .nav-link { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); text-decoration: none; padding: 6px 12px; border-radius: 6px; transition: 0.2s; }
+        .nav-link:hover { color: var(--accent); background: rgba(124, 242, 154, 0.08); }
+        .nav-tools { display: flex; align-items: center; gap: 10px; }
+        .icon-btn { background: var(--surface); border: 1px solid var(--border); color: var(--text-muted); width: 34px; height: 34px; border-radius: 8px; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; }
+        .icon-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Hero */
+        .hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; padding-top: 64px; }
+        @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 40px; } }
+        .hero-badge { display: inline-flex; align-items: center; gap: 10px; padding: 8px 14px; border-radius: 999px; background: var(--surface); border: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+        .live-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--green); display: inline-block; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+        .hero-name { font-size: clamp(56px, 10vw, 110px); font-weight: 700; line-height: 0.9; letter-spacing: -0.045em; color: #fff; margin-bottom: 12px; }
+        .hero-name .dot { color: var(--accent); }
+        .hero-role { font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 12px; }
+        .hero-tagline { font-size: clamp(20px, 2.2vw, 26px); color: var(--text); line-height: 1.45; max-width: 520px; margin-bottom: 28px; }
+        .hero-btns { display: flex; flex-wrap: wrap; gap: 14px; }
+        .btn { font-family: 'JetBrains Mono', monospace; font-size: 14px; padding: 12px 24px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: 0.2s; cursor: pointer; border: 1px solid transparent; }
+        .btn-primary { background: var(--accent); color: #0A0C0F; font-weight: 600; }
+        .btn-primary:hover { opacity: 0.85; transform: translateY(-2px); }
+        .btn-ghost { background: transparent; border-color: var(--border); color: var(--text); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+        .term { background: var(--surface2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.4); }
+        .term-header { display: flex; align-items: center; gap: 8px; padding: 14px 18px; border-bottom: 1px solid var(--border); background: var(--surface); }
+        .term-dot { width: 12px; height: 12px; border-radius: 50%; }
+        .term-title { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); margin-left: 12px; }
+        .term-body { padding: 18px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.7; }
+        .term-cmd { color: var(--accent); }
+        .term-out { color: var(--text-muted); }
+
+        /* Impact */
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 14px; margin-bottom: 32px; }
+        .impact-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 20px; border-left: 3px solid var(--c, var(--accent)); }
+        .impact-num { font-family: 'JetBrains Mono', monospace; font-size: 28px; font-weight: 700; color: var(--c, var(--accent)); display: block; margin-bottom: 4px; }
+        .impact-lbl { font-size: 13px; color: var(--text-muted); line-height: 1.4; }
+
+        /* Git Log */
+        .commit-list { display: flex; flex-direction: column; gap: 4px; }
+        .commit { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+        .commit:hover { border-color: #2a323d; }
+        .commit-head { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; padding: 18px 20px; cursor: pointer; background: none; border: none; width: 100%; text-align: left; color: var(--text); font-family: inherit; font-size: inherit; }
+        .commit-hash { font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--orange); }
+        .commit-badge { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 10px; border-radius: 999px; border: 1px solid var(--accent); color: var(--accent); }
+        .commit-title { font-size: 18px; font-weight: 600; flex-basis: 100%; margin-top: 4px; }
+        .commit-meta { font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); }
+        .commit-toggle { margin-left: auto; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+        .commit-diff { display: none; border-top: 1px solid var(--border); }
+        .commit.open .commit-diff { display: block; }
+        .diff-line { font-family: 'JetBrains Mono', monospace; font-size: 13px; padding: 4px 20px; line-height: 1.6; }
+        .diff-line.add { color: #7CF29A; } .diff-line.add::before { content: '+ '; }
+        .diff-hdr { color: var(--purple); background: rgba(196, 161, 255, 0.06); }
+        .commit-tags { display: flex; flex-wrap: wrap; gap: 6px; padding: 12px 20px; border-top: 1px solid var(--border); }
+        .commit-tag { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 3px 9px; border-radius: 999px; border: 1px solid var(--border); color: var(--text-muted); }
+
+        /* Pipeline (Same as before) */
+        .pipe-tabs { display: flex; gap: 8px; margin-bottom: 20px; border-bottom: 1px solid var(--border); padding-bottom: 12px; flex-wrap: wrap; }
+        .pipe-tab { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 10px 20px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; cursor: pointer; transition: 0.2s; }
+        .pipe-tab:hover { color: var(--text); border-color: var(--text-muted); }
+        .pipe-tab.active { background: var(--accent); color: #000; border-color: var(--accent); font-weight: 600; }
+        .pipe-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 26px; margin-top: 24px; display: none; }
+        .pipe-card.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .pipe-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
+        .pipe-params { display: flex; flex-wrap: wrap; gap: 16px; margin-bottom: 20px; padding: 16px; background: var(--surface2); border-radius: 8px; border: 1px solid var(--border); font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+        .param-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 150px; }
+        .param-group label { color: var(--text-muted); font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+        .param-group input[type="text"] { background: var(--surface); border: 1px solid var(--border); color: var(--text); padding: 8px 12px; border-radius: 6px; font-family: 'JetBrains Mono', monospace; font-size: 13px; }
+        .param-group input[type="text"]:focus { outline: none; border-color: var(--accent); }
+        .param-group.checkbox { flex-direction: row; align-items: center; min-width: auto; gap: 8px; margin-top: 18px; }
+        .param-group.checkbox label { text-transform: none; font-size: 13px; cursor: pointer; margin-bottom: 0; }
+        .param-group.checkbox input { accent-color: var(--accent); cursor: pointer; width: 16px; height: 16px; }
+        .pipe-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; margin-bottom: 24px; }
+        .pipe-bar-fill { height: 100%; width: 0%; background: var(--accent); border-radius: 3px; transition: width 0.3s; }
+        .stages { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; margin-bottom: 20px; }
+        .stage { background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 12px 8px; text-align: center; transition: 0.2s; }
+        .stage-icon { font-size: 16px; margin-bottom: 6px; display: block; }
+        .stage-name { font-weight: 600; font-size: 13px; margin-bottom: 4px; color: var(--text); }
+        .stage-status { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--text-muted); }
+        .stage.success { border-color: var(--green); background: rgba(124, 242, 154, 0.05); }
+        .stage.success .stage-status { color: var(--green); }
+        .stage.running { border-color: var(--orange); background: rgba(255, 184, 107, 0.05); }
+        .stage.running .stage-status { color: var(--orange); }
+        .stage.failed { border-color: var(--pink); background: rgba(255, 138, 138, 0.05); }
+        .stage.failed .stage-status { color: var(--pink); }
+        .pipe-actions { display: flex; gap: 12px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+        .pipe-log { background: #050608; border: 1px solid var(--border); border-radius: 8px; padding: 16px; font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); min-height: 250px; max-height: 400px; overflow-y: auto; white-space: pre-wrap; line-height: 1.6; }
+        .log-cmd { color: var(--accent); } .log-err { color: var(--pink); } .log-warn { color: var(--orange); } .log-success { color: var(--green); } .log-info { color: var(--blue); }
+
+        /* Self Healing Cluster */
+        .cluster-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 24px; margin-top: 24px; }
+        @media (max-width: 800px) { .cluster-grid { grid-template-columns: 1fr; } }
+        .cluster-panel { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+        .cluster-stats { display: flex; flex-direction: column; gap: 16px; }
+        .stat-item { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+        .stat-label { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--text-muted); text-transform: uppercase; }
+        .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 20px; font-weight: 700; color: var(--text); }
+        .stat-value.green { color: var(--green); }
+        .stat-value.orange { color: var(--orange); }
+        .stat-value.pink { color: var(--pink); }
+        
+        .node { background: var(--surface2); border: 1px solid var(--border); border-radius: 10px; padding: 16px; margin-bottom: 16px; }
+        .node-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--border); padding-bottom: 8px; }
+        .node-name { font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; color: var(--text); }
+        .node-status { font-family: 'JetBrains Mono', monospace; font-size: 11px; padding: 2px 8px; border-radius: 999px; }
+        .node-status.healthy { background: rgba(124, 242, 154, 0.1); color: var(--green); border: 1px solid var(--green); }
+        .node-status.warning { background: rgba(255, 184, 107, 0.1); color: var(--orange); border: 1px solid var(--orange); }
+        .pods { display: flex; flex-wrap: wrap; gap: 10px; min-height: 60px; }
+        .pod { 
+            width: 50px; height: 50px; border-radius: 8px; background: var(--surface); border: 1px solid var(--border); 
+            display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.2s; position: relative;
+        }
+        .pod:hover { border-color: var(--accent); transform: scale(1.05); }
+        .pod.running { border-color: var(--green); background: rgba(124, 242, 154, 0.05); }
+        .pod.terminating { border-color: var(--orange); animation: blink 0.5s infinite alternate; }
+        .pod.crashed { border-color: var(--pink); background: rgba(255, 138, 138, 0.05); }
+        .pod.pending { border-color: var(--blue); background: rgba(92, 200, 255, 0.05); }
+        @keyframes blink { from { opacity: 1; } to { opacity: 0.5; } }
+        .pod-icon { font-size: 20px; color: var(--text-muted); }
+        .pod.running .pod-icon { color: var(--green); }
+        .pod.crashed .pod-icon { color: var(--pink); }
+        .pod.terminating .pod-icon { color: var(--orange); }
+        
+        .chaos-btn { margin-top: 16px; width: 100%; background: var(--pink); color: #000; border: none; padding: 12px; border-radius: 8px; font-family: 'JetBrains Mono', monospace; font-size: 14px; font-weight: 600; cursor: pointer; transition: 0.2s; display: flex; align-items: center; justify-content: center; gap: 8px; }
+        .chaos-btn:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* Contact & Footer */
+        .contact-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 32px; font-family: 'JetBrains Mono', monospace; font-size: 14px; line-height: 1.8; margin-top: 24px; }
+        .contact-box .comment { color: var(--text-dim); }
+        .contact-box .key { color: var(--purple); }
+        .contact-box .str { color: var(--green); }
+        .contact-box .prompt { color: var(--accent); }
+        .footer { border-top: 1px solid var(--border); padding: 32px 24px; text-align: center; font-family: 'JetBrains Mono', monospace; font-size: 13px; color: var(--text-dim); }
+        
+        /* Command Palette */
+        .palette-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 200; align-items: flex-start; justify-content: center; padding-top: 120px; }
+        .palette-overlay.open { display: flex; }
+        .palette { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; width: 100%; max-width: 500px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.6); }
+        .palette-input { width: 100%; background: var(--surface2); border: none; border-bottom: 1px solid var(--border); padding: 16px 20px; font-family: 'JetBrains Mono', monospace; font-size: 15px; color: var(--text); outline: none; }
+        .palette-items { padding: 8px; }
+        .palette-item { display: flex; align-items: center; gap: 12px; padding: 10px 16px; border-radius: 8px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text-muted); transition: background 0.15s; }
+        .palette-item:hover { background: var(--surface2); color: var(--text); }
+        .palette-item i { width: 18px; text-align: center; color: var(--accent); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { grid-template-columns: 1fr; }
+            .impact-grid { grid-template-columns: 1fr 1fr; }
+            .stages { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="nav">
+        <a href="#top" class="nav-brand">ermawan<span>.sh</span><span class="cursor">▌</span></a>
+        <div class="nav-links">
+            <a href="#log" class="nav-link">./experience</a>
+            <a href="#pipeline" class="nav-link">./pipeline</a>
+            <a href="#cluster" class="nav-link">./cluster</a>
+            <a href="#contact" class="nav-link">./contact</a>
+        </div>
+        <div class="nav-tools">
+            <button class="icon-btn" id="paletteBtn" title="Command Palette (Ctrl+K)"><i class="fas fa-search"></i></button>
+            <div class="nav-status" style="font-family:'JetBrains Mono'; font-size:11px; color:var(--text-muted); display:flex; align-items:center; gap:6px;"><span class="live-dot"></span> all systems operational</div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section id="top" class="container hero">
+        <div>
+            <div class="hero-badge">
+                <span class="live-dot"></span> DevOps Engineer / IT Infrastructure
+            </div>
+            <h1 class="hero-name">Ermawan<span class="dot">.</span></h1>
+            <p class="hero-role">DevOps Engineer · Linux · CI/CD · Docker</p>
+            <p class="hero-tagline">I automate the pipeline so you don't have to.</p>
+            <div class="hero-btns">
+                <a href="#log" class="btn btn-primary">See my work <i class="fas fa-arrow-right"></i></a>
+                <a href="#contact" class="btn btn-ghost">Get in touch</a>
+            </div>
+        </div>
+        <div class="term">
+            <div class="term-header">
+                <span class="term-dot" style="background:#FF7A7A"></span>
+                <span class="term-dot" style="background:#FFB86B"></span>
+                <span class="term-dot" style="background:#7CF29A"></span>
+                <span class="term-title">visitor@ermawan — zsh — 80×24</span>
+            </div>
+            <div class="term-body">
+                <div class="term-cmd">$ ssh visitor@ermawan.dev</div>
+                <div class="term-out">authenticating with key "curiosity"… ok</div>
+                <div class="term-out">good afternoon. prod is calm.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPERIENCE (GIT LOG) -->
+    <section id="log" class="container">
+        <div class="section-label">01 / EXPERIENCE</div>
+        <h2 class="section-title">git log --career</h2>
+        <p class="section-desc">Platform engineering for real production systems. Click a commit to see the diff.</p>
+
+        <div class="impact-grid">
+            <div class="impact-card" style="--c: var(--green);"><span class="impact-num">99%</span><span class="impact-lbl">application release readiness across staging & production</span></div>
+            <div class="impact-card" style="--c: var(--blue);"><span class="impact-num">6+</span><span class="impact-lbl">production stages validated per release cycle</span></div>
+            <div class="impact-card" style="--c: var(--purple);"><span class="impact-num">40%</span><span class="impact-lbl">reduction in deployment blockers</span></div>
+            <div class="impact-card" style="--c: var(--orange);"><span class="impact-num">100%</span><span class="impact-lbl">CI/CD pipeline validation coverage</span></div>
+        </div>
+
+        <div class="commit-list">
+            <div class="commit open">
+                <button class="commit-head" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="commit-hash">a1f3c9e</span>
+                    <span class="commit-badge">HEAD → main</span>
+                    <span class="commit-toggle">[ − ]</span>
+                    <span class="commit-title">DevOps QA Engineer @ Lawencon International</span>
+                    <span class="commit-meta">Oct 2023 – Present · Jakarta</span>
+                </button>
+                <div class="commit-diff">
+                    <div class="diff-line diff-hdr">@@ deployment verification @@</div>
+                    <div class="diff-line add">Performed pre-deployment and post-deployment verification to ensure application release readiness.</div>
+                    <div class="diff-line add">Validated CI/CD pipeline execution using Atlassian Bamboo and OpenShift Container Platform.</div>
+                    <div class="diff-line add">Reviewed deployment configurations, Helm charts, and environment variables.</div>
+                    <div class="diff-line diff-hdr">@@ database & release @@</div>
+                    <div class="diff-line add">Performed database deployment verification (SQL schema migration, rollback validation).</div>
+                    <div class="diff-line add">Coordinated with Dev, Ops, and Platform teams to investigate deployment blockers.</div>
+                </div>
+                <div class="commit-tags">
+                    <span class="commit-tag">OpenShift</span><span class="commit-tag">Bamboo</span><span class="commit-tag">Helm</span>
+                </div>
+            </div>
+            <div class="commit">
+                <button class="commit-head" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="commit-hash">7be21d4</span>
+                    <span class="commit-badge">merged → full-time</span>
+                    <span class="commit-toggle">[ + ]</span>
+                    <span class="commit-title">DevOps Engineer @ PT. NTX Solution Technology</span>
+                    <span class="commit-meta">Aug 2022 – Oct 2023 · Jakarta</span>
+                </button>
+                <div class="commit-diff">
+                    <div class="diff-line diff-hdr">@@ infrastructure management @@</div>
+                    <div class="diff-line add">Managed Linux servers, Docker containers, CI/CD pipelines, and application deployments.</div>
+                    <div class="diff-line add">Monitored infrastructure using Prometheus and Grafana.</div>
+                    <div class="diff-line add">Configured Nginx reverse proxy, SSL certificates, and domain routing.</div>
+                    <div class="diff-line add">Implemented security scanning using Trivy and SonarQube.</div>
+                </div>
+                <div class="commit-tags">
+                    <span class="commit-tag">Linux</span><span class="commit-tag">Docker</span><span class="commit-tag">Prometheus</span><span class="commit-tag">Nginx</span>
+                </div>
+            </div>
+            <div class="commit">
+                <button class="commit-head" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="commit-hash">4d02b7f</span>
+                    <span class="commit-badge">tag: v0.1</span>
+                    <span class="commit-toggle">[ + ]</span>
+                    <span class="commit-title">IT Engineer Integration @ PT. IT Group Indonesia</span>
+                    <span class="commit-meta">Aug 2021 – May 2022 · Jakarta</span>
+                </button>
+                <div class="commit-diff">
+                    <div class="diff-line diff-hdr">@@ solution design @@</div>
+                    <div class="diff-line add">Created solution designs and presented API Gateway solutions to clients.</div>
+                    <div class="diff-line add">Performed system requirements gathering and integration validation.</div>
+                    <div class="diff-line add">Conducted preventive maintenance for Kong API Environment.</div>
+                </div>
+                <div class="commit-tags">
+                    <span class="commit-tag">Kong</span><span class="commit-tag">API Gateway</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PIPELINE -->
+    <section id="pipeline" class="container">
+        <div class="section-label">02 / PIPELINE</div>
+        <h2 class="section-title">Press the button. Ship to prod.</h2>
+        <p class="section-desc">Simulations of my actual Jenkins CI/CD pipelines. Try triggering a build and adjusting the parameters.</p>
+
+        <div class="pipe-tabs">
+            <button class="pipe-tab active" onclick="switchTab('dev')">Dev (Blue-Green)</button>
+            <button class="pipe-tab" onclick="switchTab('staging')">Staging</button>
+            <button class="pipe-tab" onclick="switchTab('production')">Production</button>
+        </div>
+
+        <!-- DEV -->
+        <div id="pipe-dev" class="pipe-card active">
+            <div class="pipe-header"><span>Job: <strong>aegis-backend-dev</strong></span><span id="dev-pipe-status" style="color:var(--text-dim);">● idle</span></div>
+            <div class="pipe-params">
+                <div class="param-group checkbox"><input type="checkbox" id="dev-run-test" checked><label for="dev-run-test">RUN_TEST</label></div>
+                <div class="param-group checkbox"><input type="checkbox" id="dev-run-sonar" checked><label for="dev-run-sonar">RUN_SONAR</label></div>
+                <div class="param-group checkbox"><input type="checkbox" id="dev-run-trivy"><label for="dev-run-trivy">RUN_TRIVY_BLOCKING</label></div>
+            </div>
+            <div class="pipe-bar"><div class="pipe-bar-fill" id="dev-fill"></div></div>
+            <div class="stages" id="dev-stages">
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Checkout</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Prepare .env</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Go Test</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">SonarQube</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Trivy FS</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Build Image</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Trivy Image</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Push Image</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Deploy Inactive</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">BG Switch</div><div class="stage-status">queued</div></div>
+            </div>
+            <div class="pipe-actions">
+                <button class="btn btn-primary" id="dev-ship-btn" onclick="runDev()"><i class="fas fa-play"></i> Build with Parameters</button>
+                <label class="mono" style="font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="dev-force-fail"> Force Health Check Failure</label>
+            </div>
+            <div class="pipe-log" id="dev-log">$ Jenkins is ready. Waiting for build trigger...</div>
+        </div>
+
+        <!-- STAGING -->
+        <div id="pipe-staging" class="pipe-card">
+            <div class="pipe-header"><span>Job: <strong>aegis-backend-staging</strong></span><span id="stg-pipe-status" style="color:var(--text-dim);">● idle</span></div>
+            <div class="pipe-params">
+                <div class="param-group"><label>IMAGE_VERSION</label><input type="text" id="stg-version" value="v1.2.0-rc.1"></div>
+                <div class="param-group checkbox"><input type="checkbox" id="stg-run-trivy"><label for="stg-run-trivy">RUN_TRIVY_BLOCKING</label></div>
+            </div>
+            <div class="pipe-bar"><div class="pipe-bar-fill" id="stg-fill"></div></div>
+            <div class="stages" id="stg-stages">
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Checkout</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Validate</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Go Test</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">SonarQube</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Build</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Trivy</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Push</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Deploy</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Health</div><div class="stage-status">queued</div></div>
+            </div>
+            <div class="pipe-actions">
+                <button class="btn btn-primary" id="stg-ship-btn" onclick="runStaging()"><i class="fas fa-play"></i> Build</button>
+                <label class="mono" style="font-size:12px; color:var(--text-muted); display:flex; align-items:center; gap:6px; cursor:pointer;"><input type="checkbox" id="stg-force-fail"> Force Health Failure</label>
+            </div>
+            <div class="pipe-log" id="stg-log">$ Jenkins is ready...</div>
+        </div>
+
+        <!-- PROD -->
+        <div id="pipe-production" class="pipe-card">
+            <div class="pipe-header"><span>Job: <strong>aegis-backend-production</strong></span><span id="prod-pipe-status" style="color:var(--text-dim);">● idle</span></div>
+            <div class="pipe-params">
+                <div class="param-group"><label>RELEASE_VERSION</label><input type="text" id="prod-version" value="v1.2.0"></div>
+                <div class="param-group"><label>CHANGE_TICKET</label><input type="text" id="prod-ticket" value="CHG-2024-001"></div>
+            </div>
+            <div class="pipe-bar"><div class="pipe-bar-fill" id="prod-fill"></div></div>
+            <div class="stages" id="prod-stages">
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Checkout</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Validate</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Verify</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Approval</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Deploy</div><div class="stage-status">queued</div></div>
+                <div class="stage"><span class="stage-icon">○</span><div class="stage-name">Health</div><div class="stage-status">queued</div></div>
+            </div>
+            <div class="pipe-actions">
+                <button class="btn btn-primary" id="prod-ship-btn" onclick="runProduction()"><i class="fas fa-play"></i> Build</button>
+                <button class="btn btn-ghost" id="prod-approve-btn" style="display:none;" onclick="approveProduction()"><i class="fas fa-check"></i> Approve</button>
+            </div>
+            <div class="pipe-log" id="prod-log">$ Jenkins is ready...</div>
+        </div>
+    </section>
+
+    <!-- SELF-HEALING CLUSTER -->
+    <section id="cluster" class="container">
+        <div class="section-label">03 / SELF-HEALING</div>
+        <h2 class="section-title">Go on. Kill a container.</h2>
+        <p class="section-desc">Click any container to terminate it. A reconcile loop brings it back automatically. Can you do it faster by hand? Play the on-call game.</p>
+
+        <div class="cluster-grid">
+            <div class="cluster-panel">
+                <div class="cluster-stats">
+                    <div class="stat-item"><span class="stat-label">deployment/api</span><span class="stat-value green" id="stat-ready">6/6</span></div>
+                    <div class="stat-item"><span class="stat-label">ingress</span><span class="stat-value" style="font-size:14px;">766 req/s</span></div>
+                    <div class="stat-item"><span class="stat-label">reconcile loop</span><span class="stat-value orange" id="stat-heals">0</span></div>
+                    <div class="stat-item"><span class="stat-label">pager (humans woken)</span><span class="stat-value pink" id="stat-pager">0</span></div>
+                </div>
+                <button class="chaos-btn" onclick="chaosMonkey()"><i class="fas fa-meteor"></i> Unleash Chaos Monkey</button>
+            </div>
+
+            <div class="cluster-panel">
+                <div class="node">
+                    <div class="node-header">
+                        <span class="node-name">node-a · pod-group</span>
+                        <span class="node-status healthy" id="node-a-status">Running</span>
+                    </div>
+                    <div class="pods" id="node-a-pods">
+                        <!-- Pods will be generated here -->
+                    </div>
+                </div>
+                <div class="node">
+                    <div class="node-header">
+                        <span class="node-name">node-b · pod-group</span>
+                        <span class="node-status healthy" id="node-b-status">Running</span>
+                    </div>
+                    <div class="pods" id="node-b-pods"></div>
+                </div>
+                <div class="node">
+                    <div class="node-header">
+                        <span class="node-name">node-c · pod-group</span>
+                        <span class="node-status healthy" id="node-c-status">Running</span>
+                    </div>
+                    <div class="pods" id="node-c-pods"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact" class="container">
+        <div class="section-label">04 / CONTACT</div>
+        <h2 class="section-title">Let's build something that doesn't page anyone at 3am.</h2>
+        <p class="section-desc">Open to DevOps, Platform Engineering, and SRE roles.</p>
+
+        <div class="contact-box">
+            <div class="comment"># hire.tf — terraform</div>
+            <div><span class="prompt">$</span> terraform plan -out=hire.tfplan</div>
+            <br>
+            <div><span class="comment"># team.platform_engineer["ermawan"] will be created</span></div>
+            <div><span class="key">+ resource</span> <span class="str">"team"</span> <span class="str">"platform_engineer"</span> {</div>
+            <div>&nbsp;&nbsp;<span class="key">+ name</span>   = <span class="str">"Ermawan"</span></div>
+            <div>&nbsp;&nbsp;<span class="key">+ role</span>   = <span class="str">"DevOps / Platform / SRE"</span></div>
+            <div>&nbsp;&nbsp;<span class="key">+ base</span>   = <span class="str">"Banyubiru, ID"</span></div>
+            <div>&nbsp;&nbsp;<span class="key">+ stack</span>  = [<span class="str">"AWS"</span>, <span class="str">"Docker"</span>, <span class="str">"Kubernetes"</span>]</div>
+            <div>&nbsp;&nbsp;<span class="key">+ status</span> = <span class="str">"Open to opportunities"</span></div>
+            <div>}</div>
+            <br>
+            <div><span class="comment"># Plan: 1 to add, 0 to change, 0 to destroy.</span></div>
+            <br>
+            <div style="margin-top:8px;">
+                <a href="mailto:ermawanbanyubiru@gmail.com" class="btn btn-primary"><i class="fas fa-envelope"></i> Email Me</a>
+                <a href="https://www.linkedin.com/in/ermawan-banyubiru-077841220/" target="_blank" class="btn btn-ghost" style="margin-left:8px;"><i class="fab fa-linkedin"></i> LinkedIn</a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Ermawan Banyubiru. Built with curiosity, deployed with CI/CD.</p>
+        </div>
+    </footer>
+
+    <!-- COMMAND PALETTE -->
+    <div class="palette-overlay" id="paletteOverlay">
+        <div class="palette">
+            <input type="text" class="palette-input" placeholder="Type a command or search…" id="paletteInput">
+            <div class="palette-items" id="paletteItems">
+                <div class="palette-item" data-target="#log"><i class="fas fa-briefcase"></i> ./experience</div>
+                <div class="palette-item" data-target="#pipeline"><i class="fas fa-infinity"></i> ./pipeline</div>
+                <div class="palette-item" data-target="#cluster"><i class="fas fa-cubes"></i> ./cluster</div>
+                <div class="palette-item" data-target="#contact"><i class="fas fa-envelope"></i> ./contact</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ---- Command Palette ----
+        const overlay = document.getElementById('paletteOverlay');
+        const input = document.getElementById('paletteInput');
+        const items = document.querySelectorAll('.palette-item');
+        document.getElementById('paletteBtn').addEventListener('click', () => { overlay.classList.add('open'); input.focus(); });
+        document.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); overlay.classList.toggle('open'); if (overlay.classList.contains('open')) input.focus(); }
+            if (e.key === 'Escape') overlay.classList.remove('open');
+        });
+        overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+        items.forEach(item => {
+            item.addEventListener('click', () => {
+                const target = item.dataset.target;
+                document.querySelector(target).scrollIntoView({ behavior: 'smooth' });
+                overlay.classList.remove('open');
+            });
+        });
+        input.addEventListener('input', () => {
+            const val = input.value.toLowerCase();
+            items.forEach(item => { item.style.display = item.textContent.toLowerCase().includes(val) ? 'flex' : 'none'; });
+        });
+
+        // ---- Pipeline Tabs ----
+        function switchTab(tabName) {
+            document.querySelectorAll('.pipe-tab').forEach(t => t.classList.remove('active'));
+            document.querySelector(`.pipe-tab[onclick="switchTab('${tabName}')"]`).classList.add('active');
+            document.querySelectorAll('.pipe-card').forEach(c => c.classList.remove('active'));
+            document.getElementById(`pipe-${tabName}`).classList.add('active');
+        }
+
+        // ---- Pipeline Utils ----
+        function logToTerminal(elementId, text, type = 'plain') {
+            const term = document.getElementById(elementId);
+            let colorClass = '';
+            if (type === 'cmd') colorClass = 'log-cmd';
+            else if (type === 'err') colorClass = 'log-err';
+            else if (type === 'warn') colorClass = 'log-warn';
+            else if (type === 'success') colorClass = 'log-success';
+            else if (type === 'info') colorClass = 'log-info';
+            const span = document.createElement('span');
+            if (colorClass) span.className = colorClass;
+            span.innerText = text + '\n';
+            term.appendChild(span);
+            term.scrollTop = term.scrollHeight;
+        }
+        function resetStages(containerId) {
+            document.querySelectorAll(`#${containerId} .stage`).forEach(s => {
+                s.className = 'stage';
+                s.querySelector('.stage-icon').textContent = '○';
+                s.querySelector('.stage-status').textContent = 'queued';
+            });
+        }
+        function markStage(containerId, index, status) {
+            const stages = document.querySelectorAll(`#${containerId} .stage`);
+            const s = stages[index]; if (!s) return;
+            s.className = `stage ${status}`;
+            if (status === 'success') { s.querySelector('.stage-icon').textContent = '✓'; s.querySelector('.stage-status').textContent = 'passed'; }
+            else if (status === 'running') { s.querySelector('.stage-icon').textContent = '◉'; s.querySelector('.stage-status').textContent = 'running…'; }
+            else if (status === 'failed') { s.querySelector('.stage-icon').textContent = '✗'; s.querySelector('.stage-status').textContent = 'failed'; }
+        }
+
+        // ---- Dev Pipeline ----
+        let devRunning = false;
+        function runDev() {
+            if (devRunning) return;
+            devRunning = true;
+            const btn = document.getElementById('dev-ship-btn');
+            const status = document.getElementById('dev-pipe-status');
+            const fill = document.getElementById('dev-fill');
+            const logId = 'dev-log';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...'; btn.disabled = true;
+            status.textContent = '● building'; status.style.color = 'var(--orange)'; fill.style.width = '0%';
+            document.getElementById(logId).innerHTML = ''; resetStages('dev-stages');
+
+            const runTrivy = document.getElementById('dev-run-trivy').checked;
+            const forceFail = document.getElementById('dev-force-fail').checked;
+            let step = 0; const totalSteps = 10;
+            let failAt = -1;
+            if (runTrivy) failAt = 6;
+            else if (forceFail) failAt = 9;
+            logToTerminal(logId, `$ git checkout dev`, 'cmd');
+
+            const interval = setInterval(() => {
+                if (step > 0 && step - 1 !== failAt) markStage('dev-stages', step - 1, 'success');
+                if (step >= totalSteps || (failAt !== -1 && step === failAt + 1)) {
+                    clearInterval(interval);
+                    if (failAt === -1) {
+                        fill.style.width = '100%'; status.textContent = '● success'; status.style.color = 'var(--green)';
+                        logToTerminal(logId, '✓ Finished: SUCCESS', 'success');
+                    } else {
+                        markStage('dev-stages', failAt, 'failed'); status.textContent = '● failed'; status.style.color = 'var(--pink)';
+                        if (failAt === 9) {
+                            logToTerminal(logId, '=== PUBLIC HEALTH CHECK FAILED ===', 'err');
+                            logToTerminal(logId, 'Rollback traffic ke app-1.', 'warn');
+                        } else {
+                            logToTerminal(logId, '✗ Finished: FAILURE', 'err');
+                        }
+                    }
+                    devRunning = false; btn.innerHTML = '<i class="fas fa-play"></i> Build'; btn.disabled = false;
+                    return;
+                }
+                markStage('dev-stages', step, 'running');
+                fill.style.width = `${((step + 1) / totalSteps) * 100}%`;
+                switch(step) {
+                    case 0: logToTerminal(logId, '> git rev-parse HEAD', 'cmd'); break;
+                    case 1: logToTerminal(logId, '> cp $ENVFILE .env', 'cmd'); break;
+                    case 2: logToTerminal(logId, '> go test ./...', 'cmd'); break;
+                    case 3: logToTerminal(logId, '> sonar-scanner ...', 'cmd'); break;
+                    case 4: logToTerminal(logId, '> trivy fs ...', 'cmd'); break;
+                    case 5: logToTerminal(logId, '> docker compose build', 'cmd'); break;
+                    case 6: if (runTrivy) logToTerminal(logId, '> trivy image --exit-code 1 ...', 'err'); else logToTerminal(logId, '> trivy image (non-blocking)', 'cmd'); break;
+                    case 7: logToTerminal(logId, '> docker push ...', 'cmd'); break;
+                    case 8: logToTerminal(logId, '> rsync to dev-vm', 'cmd'); break;
+                    case 9: logToTerminal(logId, '> docker kill --signal=HUP nginx', 'cmd'); break;
+                }
+                step++;
+            }, 800);
+        }
+
+        // ---- Staging Pipeline ----
+        let stgRunning = false;
+        function runStaging() {
+            if (stgRunning) return;
+            stgRunning = true;
+            const btn = document.getElementById('stg-ship-btn');
+            const status = document.getElementById('stg-pipe-status');
+            const fill = document.getElementById('stg-fill');
+            const logId = 'stg-log';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...'; btn.disabled = true;
+            status.textContent = '● building'; status.style.color = 'var(--orange)'; fill.style.width = '0%';
+            document.getElementById(logId).innerHTML = ''; resetStages('stg-stages');
+
+            const version = document.getElementById('stg-version').value.trim();
+            const runTrivy = document.getElementById('stg-run-trivy').checked;
+            const forceFail = document.getElementById('stg-force-fail').checked;
+            let step = 0; const totalSteps = 9;
+            let failAt = -1;
+            const versionPattern = /^v?[0-9]+\.[0-9]+\.[0-9]+(?:-[0-9A-Za-z.-]+)?$/;
+            if (!versionPattern.test(version)) failAt = 1;
+            else if (runTrivy && version.includes('rc')) failAt = 5;
+            else if (forceFail) failAt = 8;
+
+            logToTerminal(logId, `$ git checkout main`, 'cmd');
+            const interval = setInterval(() => {
+                if (step > 0 && step - 1 !== failAt) markStage('stg-stages', step - 1, 'success');
+                if (step >= totalSteps || (failAt !== -1 && step === failAt + 1)) {
+                    clearInterval(interval);
+                    if (failAt === -1) {
+                        fill.style.width = '100%'; status.textContent = '● success'; status.style.color = 'var(--green)';
+                        logToTerminal(logId, '✓ Finished: SUCCESS', 'success');
+                    } else {
+                        markStage('stg-stages', failAt, 'failed'); status.textContent = '● failed'; status.style.color = 'var(--pink)';
+                        if (failAt === 8) {
+                            logToTerminal(logId, '=== HEALTH CHECK FAILED ===', 'err');
+                            logToTerminal(logId, 'Rollback to previous version...', 'warn');
+                        } else logToTerminal(logId, '✗ Finished: FAILURE', 'err');
+                    }
+                    stgRunning = false; btn.innerHTML = '<i class="fas fa-play"></i> Build'; btn.disabled = false;
+                    return;
+                }
+                markStage('stg-stages', step, 'running');
+                fill.style.width = `${((step + 1) / totalSteps) * 100}%`;
+                switch(step) {
+                    case 0: logToTerminal(logId, '> git rev-parse HEAD', 'cmd'); break;
+                    case 1: logToTerminal(logId, `> Validating ${version}`, 'cmd'); if(failAt===1) logToTerminal(logId, 'ERROR: Invalid version', 'err'); break;
+                    case 2: logToTerminal(logId, '> go test ./...', 'cmd'); break;
+                    case 3: logToTerminal(logId, '> sonar-scanner ...', 'cmd'); break;
+                    case 4: logToTerminal(logId, '> docker compose build', 'cmd'); break;
+                    case 5: if(runTrivy) logToTerminal(logId, '> trivy image --exit-code 1 ...', 'err'); else logToTerminal(logId, '> trivy image (non-blocking)', 'cmd'); break;
+                    case 6: logToTerminal(logId, '> docker push ...', 'cmd'); break;
+                    case 7: logToTerminal(logId, '> rsync to staging-vm', 'cmd'); break;
+                    case 8: logToTerminal(logId, '> Checking health...', 'cmd'); break;
+                }
+                step++;
+            }, 800);
+        }
+
+        // ---- Production Pipeline ----
+        let prodRunning = false;
+        let prodWaitingApproval = false;
+        let prodStep = 0;
+        let prodFailAt = -1;
+        let prodInterval;
+
+        function runProduction() {
+            if (prodRunning) return;
+            prodRunning = true;
+            const btn = document.getElementById('prod-ship-btn');
+            const approveBtn = document.getElementById('prod-approve-btn');
+            const status = document.getElementById('prod-pipe-status');
+            const fill = document.getElementById('prod-fill');
+            const logId = 'prod-log';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Running...'; btn.disabled = true;
+            approveBtn.style.display = 'none';
+            status.textContent = '● building'; status.style.color = 'var(--orange)'; fill.style.width = '0%';
+            document.getElementById(logId).innerHTML = ''; resetStages('prod-stages');
+
+            const version = document.getElementById('prod-version').value.trim();
+            const ticket = document.getElementById('prod-ticket').value.trim();
+            prodStep = 0; const totalSteps = 6; prodFailAt = -1;
+            const stablePattern = /^v?[0-9]+\.[0-9]+\.[0-9]+$/;
+            if (!stablePattern.test(version) || !ticket) prodFailAt = 1;
+
+            logToTerminal(logId, `$ git checkout production`, 'cmd');
+            prodInterval = setInterval(() => {
+                if (prodStep > 0 && prodStep - 1 !== prodFailAt) markStage('prod-stages', prodStep - 1, 'success');
+                if (prodStep >= totalSteps || (prodFailAt !== -1 && prodStep === prodFailAt + 1)) {
+                    clearInterval(prodInterval);
+                    if (prodFailAt === -1) {
+                        fill.style.width = '100%'; status.textContent = '● success'; status.style.color = 'var(--green)';
+                        logToTerminal(logId, '✓ Finished: PRODUCTION SUCCESS', 'success');
+                        prodRunning = false; btn.innerHTML = '<i class="fas fa-play"></i> Build'; btn.disabled = false;
+                    } else {
+                        markStage('prod-stages', prodFailAt, 'failed'); status.textContent = '● failed'; status.style.color = 'var(--pink)';
+                        logToTerminal(logId, '✗ Finished: PRODUCTION FAILURE', 'err');
+                        prodRunning = false; btn.innerHTML = '<i class="fas fa-play"></i> Build'; btn.disabled = false;
+                    }
+                    return;
+                }
+                if (prodStep === 3 && !prodWaitingApproval) {
+                    markStage('prod-stages', prodStep, 'running');
+                    fill.style.width = `${((prodStep + 1) / totalSteps) * 100}%`;
+                    logToTerminal(logId, '> Waiting for Approval...', 'warn');
+                    prodWaitingApproval = true; approveBtn.style.display = 'inline-flex';
+                    clearInterval(prodInterval); return;
+                }
+                markStage('prod-stages', prodStep, 'running');
+                fill.style.width = `${((prodStep + 1) / totalSteps) * 100}%`;
+                switch(prodStep) {
+                    case 0: logToTerminal(logId, '> git rev-parse HEAD', 'cmd'); break;
+                    case 1: logToTerminal(logId, `> Validating ${version} and ticket`, 'cmd'); if(prodFailAt===1) logToTerminal(logId, 'ERROR: Invalid version or missing ticket', 'err'); break;
+                    case 2: logToTerminal(logId, '> docker manifest inspect ...', 'cmd'); break;
+                    case 3: break;
+                    case 4: logToTerminal(logId, '> rsync to prod-vm', 'cmd'); break;
+                    case 5: logToTerminal(logId, '> Checking health...', 'cmd'); break;
+                }
+                prodStep++;
+            }, 800);
+        }
+        function approveProduction() {
+            if (!prodWaitingApproval) return;
+            prodWaitingApproval = false;
+            document.getElementById('prod-approve-btn').style.display = 'none';
+            logToTerminal('prod-log', '> Deployment APPROVED.', 'success');
+            const version = document.getElementById('prod-version').value.trim();
+            const totalSteps = 6; const logId = 'prod-log'; const fill = document.getElementById('prod-fill');
+
+            prodInterval = setInterval(() => {
+                if (prodStep >= totalSteps || (prodFailAt !== -1 && prodStep === prodFailAt + 1)) {
+                    clearInterval(prodInterval);
+                    if (prodFailAt === -1) {
+                        fill.style.width = '100%'; document.getElementById('prod-pipe-status').textContent = '● success'; document.getElementById('prod-pipe-status').style.color = 'var(--green)';
+                        logToTerminal(logId, '✓ Finished: SUCCESS', 'success');
+                    } else {
+                        markStage('prod-stages', prodFailAt, 'failed'); document.getElementById('prod-pipe-status').textContent = '● failed'; document.getElementById('prod-pipe-status').style.color = 'var(--pink)';
+                        logToTerminal(logId, '✗ Finished: FAILURE', 'err');
+                    }
+                    prodRunning = false; const btn = document.getElementById('prod-ship-btn'); btn.innerHTML = '<i class="fas fa-play"></i> Build'; btn.disabled = false;
+                    return;
+                }
+                if (prodStep > 0 && prodStep - 1 !== prodFailAt) markStage('prod-stages', prodStep - 1, 'success');
+                markStage('prod-stages', prodStep, 'running');
+                fill.style.width = `${((prodStep + 1) / totalSteps) * 100}%`;
+                switch(prodStep) {
+                    case 4: logToTerminal(logId, '> rsync to prod-vm', 'cmd'); break;
+                    case 5: logToTerminal(logId, '> Checking health...', 'cmd'); break;
+                }
+                prodStep++;
+            }, 800);
+        }
+
+        // ---- SELF-HEALING CLUSTER ----
+        const nodes = {
+            'node-a': { pods: [], maxPods: 2, healCount: 0 },
+            'node-b': { pods: [], maxPods: 2, healCount: 0 },
+            'node-c': { pods: [], maxPods: 2, healCount: 0 }
+        };
+        let totalHeals = 0;
+        let pagerWoken = 0;
+
+        function initPods() {
+            Object.keys(nodes).forEach(nodeId => {
+                const container = document.getElementById(`${nodeId}-pods`);
+                container.innerHTML = '';
+                for (let i = 0; i < nodes[nodeId].maxPods; i++) {
+                    const pod = document.createElement('div');
+                    pod.className = 'pod running';
+                    pod.innerHTML = `<i class="fas fa-cube pod-icon"></i>`;
+                    pod.onclick = () => killPod(nodeId, pod);
+                    container.appendChild(pod);
+                    nodes[nodeId].pods.push({ element: pod, status: 'running' });
+                }
+            });
+        }
+
+        function killPod(nodeId, podElement) {
+            const node = nodes[nodeId];
+            const pod = node.pods.find(p => p.element === podElement);
+            if (!pod || pod.status !== 'running') return;
+
+            pod.status = 'terminating';
+            podElement.className = 'pod terminating';
+            podElement.innerHTML = `<i class="fas fa-spinner fa-spin pod-icon"></i>`;
+
+            setTimeout(() => {
+                pod.status = 'crashed';
+                podElement.className = 'pod crashed';
+                podElement.innerHTML = `<i class="fas fa-times-circle pod-icon"></i>`;
+                
+                // Reconcile loop (auto-heal)
+                setTimeout(() => {
+                    pod.status = 'pending';
+                    podElement.className = 'pod pending';
+                    podElement.innerHTML = `<i class="fas fa-hourglass-half pod-icon"></i>`;
+                    
+                    setTimeout(() => {
+                        pod.status = 'running';
+                        podElement.className = 'pod running';
+                        podElement.innerHTML = `<i class="fas fa-cube pod-icon"></i>`;
+                        totalHeals++;
+                        document.getElementById('stat-heals').textContent = totalHeals;
+                        document.getElementById('stat-ready').textContent = '6/6';
+                    }, 1500);
+                }, 1000);
+            }, 500);
+        }
+
+        function chaosMonkey() {
+            const allNodes = Object.keys(nodes);
+            const randomNode = allNodes[Math.floor(Math.random() * allNodes.length)];
+            const nodePods = nodes[randomNode].pods;
+            const runningPods = nodePods.filter(p => p.status === 'running');
+            if (runningPods.length > 0) {
+                const randomPod = runningPods[Math.floor(Math.random() * runningPods.length)];
+                killPod(randomNode, randomPod.element);
+                document.getElementById('stat-ready').textContent = '5/6';
+                pagerWoken++;
+                document.getElementById('stat-pager').textContent = pagerWoken;
+            }
+        }
+
+        // Initialize pods on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initPods();
+            document.querySelectorAll('.commit-head').forEach(head => {
+                head.addEventListener('click', () => {
+                    const parent = head.parentElement;
+                    const toggle = head.querySelector('.commit-toggle');
+                    setTimeout(() => {
+                        toggle.textContent = parent.classList.contains('open') ? '[ − ]' : '[ + ]';
+                    }, 10);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
