@@ -1,0 +1,262 @@
+{
+  "settings": {
+    "lead": "DevOps Engineer & QA. I keep releases boring: Linux, Docker, CI/CD, OpenShift and monitoring that tells you what’s wrong before users do.",
+    "openToWork": false,
+    "openText": "Open to work",
+    "about": "DevOps-oriented IT Engineer with hands-on experience in Linux server administration, Docker, CI/CD pipelines, monitoring and application deployment. I manage containerized environments, configure Nginx reverse proxy, troubleshoot infrastructure issues and support deployment workflows across development and production."
+  },
+  "projects": [
+    {
+      "date": "Aug 2025 – Now",
+      "title": "Government & Custom Projects",
+      "desc": "Jenkins pipeline for build and deployment: Docker images pushed to Harbor and deployed with Docker Compose, plus env config, troubleshooting and service health checks.",
+      "tags": [
+        "Jenkins",
+        "Harbor",
+        "Docker Compose"
+      ]
+    },
+    {
+      "date": "Aug 2024 – May 2025",
+      "title": "Kong API Gateway @ Telkomsel",
+      "desc": "Solution design, non-prod and prod activities, preventive maintenance, weekly reports and presentations.",
+      "tags": [
+        "Kong",
+        "API Gateway"
+      ]
+    },
+    {
+      "date": "Feb 2023 – Jun 2024",
+      "title": "Lift System, Mayapada Tower 2",
+      "desc": "Hardware and software installation, monitoring, networking and network maintenance.",
+      "tags": [
+        "Networking",
+        "Monitoring"
+      ]
+    }
+  ],
+  "books": [
+    {
+      "type": "nf",
+      "title": "The Muqaddimah",
+      "author": "Ibn Khaldun",
+      "line": "A 14th-century study of why societies and dynasties rise and fall.",
+      "cover": "/covers/muqaddimah.jpg"
+    },
+    {
+      "type": "sf",
+      "title": "Romance of the Three Kingdoms",
+      "author": "Luo Guanzhong",
+      "line": "A classic Chinese novel that mixes real history with legend: alliances, strategy and the end of the Han dynasty.",
+      "cover": "/covers/three-kingdoms.jpg"
+    },
+    {
+      "type": "f",
+      "title": "A Clash of Kings",
+      "author": "George R.R. Martin",
+      "line": "Book two of A Song of Ice and Fire, the series behind Game of Thrones: rival claimants, shifting alliances and war.",
+      "cover": "/covers/clash-of-kings.jpg"
+    }
+  ],
+  "experience": [
+    {
+      "role": "DevOps QA Engineer",
+      "company": "Lawencon International",
+      "dates": "Oct 2026 – Present",
+      "bullets": [
+        "Pre- and post-deployment verification for release readiness across dev, staging and production-related environments.",
+        "Validated CI/CD runs and deployments to Red Hat OpenShift using Atlassian Bamboo.",
+        "Reviewed Helm charts, environment variables and ConfigMaps to catch configuration inconsistencies.",
+        "Database deployment checks: SQL schema migrations, piloting vs production consistency and rollback validation.",
+        "Reviewed deployment SOPs and release plans in Jira and Confluence; worked with Dev, Ops and Platform teams to unblock releases."
+      ]
+    },
+    {
+      "role": "DevOps Engineer",
+      "company": "PT. NTX Solution Technology",
+      "dates": "Aug 2025 – Oct 2026",
+      "bullets": [
+        "Managed Linux servers, Docker containers, CI/CD pipelines and deployments.",
+        "Monitored infrastructure and apps with Prometheus and Grafana.",
+        "Configured Nginx reverse proxy, SSL certificates and domain routing.",
+        "Implemented security scanning with Trivy and SonarQube."
+      ]
+    },
+    {
+      "role": "IT Engineer, Integration & Automation",
+      "company": "PT. IT Group Indonesia",
+      "dates": "Aug 2024 – May 2025",
+      "bullets": [
+        "Created solution designs and presented API Gateway solutions.",
+        "Gathered integration and validation requirements and ensured they were delivered as agreed with the customer.",
+        "Weekly and monthly health-check reports and preventive maintenance for the Kong API environment."
+      ]
+    },
+    {
+      "role": "IT Support",
+      "company": "PT. Sejahtera Alam Property",
+      "dates": "Feb 2023 – Aug 2024",
+      "bullets": [
+        "Kept IT operations running: hardware and software assets, troubleshooting, server backups and updates.",
+        "Coordinated with vendors and built the company profile website and desktop software."
+      ]
+    },
+    {
+      "role": "IT Technical Support (Internship)",
+      "company": "PDAM Tirta Pakuan Bogor",
+      "dates": "Oct 2015 – Feb 2016",
+      "bullets": [
+        "Installed and repaired devices, cabling, operating systems and software for staff."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "category": "Containers & Orchestration",
+      "items": [
+        "Docker",
+        "Docker Compose",
+        "Kubernetes",
+        "OpenShift"
+      ]
+    },
+    {
+      "category": "CI/CD",
+      "items": [
+        "Jenkins",
+        "GitLab CI/CD",
+        "GitHub Actions",
+        "Bamboo"
+      ]
+    },
+    {
+      "category": "Monitoring",
+      "items": [
+        "Prometheus",
+        "Grafana",
+        "Node Exporter",
+        "cAdvisor",
+        "Alertmanager",
+        "OpenTelemetry"
+      ]
+    },
+    {
+      "category": "Security",
+      "items": [
+        "Trivy",
+        "SonarQube",
+        "OpenCTI"
+      ]
+    },
+    {
+      "category": "OS & Web",
+      "items": [
+        "Linux",
+        "RHEL",
+        "Ubuntu Server",
+        "Windows Server",
+        "Nginx",
+        "Apache"
+      ]
+    },
+    {
+      "category": "API Gateway",
+      "items": [
+        "Kong",
+        "Tyk",
+        "HAProxy"
+      ]
+    },
+    {
+      "category": "Automation & Code",
+      "items": [
+        "Ansible",
+        "Bash",
+        "Python",
+        "Node.js",
+        "PHP",
+        "Laravel"
+      ]
+    },
+    {
+      "category": "Cloud, DB & Registry",
+      "items": [
+        "AWS",
+        "VMware",
+        "PostgreSQL",
+        "MySQL",
+        "MongoDB",
+        "Harbor",
+        "Git"
+      ]
+    }
+  ],
+  "certs": [
+    {
+      "date": "Jul 2024",
+      "title": "AWS Cloud Practitioner Essentials",
+      "issuer": "Amazon Web Services"
+    },
+    {
+      "date": "Sep 2024",
+      "title": "Kong Gateway Operations",
+      "issuer": "Kong Inc"
+    },
+    {
+      "date": "Jun 2025 – Jun 2026",
+      "title": "DevOps Bootcamp",
+      "issuer": "Adinusa"
+    },
+    {
+      "date": "Oct 2023 – Oct 2025",
+      "title": "Linux System Administrator",
+      "issuer": "Adinusa"
+    },
+    {
+      "date": "Dec 2022",
+      "title": "Red Hat System Administrator",
+      "issuer": "ITG Group Indonesia"
+    },
+    {
+      "date": "Aug 2023",
+      "title": "CCNAv7: Introduction to Networks",
+      "issuer": "Cisco Networking Academy"
+    }
+  ],
+  "education": [
+    {
+      "date": "2023",
+      "title": "B.Sc. Information Systems",
+      "issuer": "Universitas Binaniaga"
+    },
+    {
+      "date": "2020",
+      "title": "A.Md. Management Informatics",
+      "issuer": "Universitas Binaniaga"
+    }
+  ],
+  "stats": [
+    {
+      "value": "3+",
+      "label": "Years in DevOps & infra roles"
+    },
+    {
+      "value": "OCP",
+      "label": "Red Hat OpenShift deployments"
+    },
+    {
+      "value": "Kong",
+      "label": "API gateway for Telkomsel"
+    },
+    {
+      "value": "7+",
+      "label": "Certificates & trainings"
+    }
+  ],
+  "contact": {
+    "email": "ermawanbanyubiru@gmail.com",
+    "phone": "+62 813-1640-3925",
+    "linkedin": "https://www.linkedin.com/in/ermawan-banyubiru-077841220/",
+    "website": "https://ermawan-portofolio.vercel.app"
+  }
+}
