@@ -1,0 +1,29 @@
+services:
+  portfolio:
+    build: .
+    image: ermawan-portfolio:latest
+    container_name: ermawan-portfolio
+    restart: unless-stopped
+    ports:
+      # bind to 127.0.0.1:3000:3000 if you put Nginx/Caddy in front
+      - "3000:3000"
+    env_file: .env
+    environment:
+      DATA_DIR: /app/data
+    volumes:
+      - portfolio-data:/app/data   # content.json + uploaded covers survive rebuilds
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/healthz"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+    read_only: true
+    tmpfs:
+      - /tmp
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+
+volumes:
+  portfolio-data:
